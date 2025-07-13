@@ -1,0 +1,31 @@
+form TravelBooking {
+  meta author = "Travel Agency";
+
+  section TravelerInformation {
+    field FullName: text required;
+    field Email: email required;
+    field Phone: text;
+    field PassportNumber: text required;
+  }
+
+  section TripDetails {
+    field Destination: dropdown ["Europe", "Asia", "North America", "South America", "Africa", "Australia"] required;
+    field TripType: radio ["One-way", "Round-trip", "Multi-city"];
+    field DepartureDate: date required;
+    field ReturnDate: date;
+    field NumberOfTravelers: number min=1 max=10;
+  }
+
+  section Preferences {
+    field SpecialRequirements: textarea rows=3;
+    field MealPreference: dropdown ["Regular", "Vegetarian", "Vegan", "Gluten-free"];
+    field TravelInsurance: checkbox default=false;
+    field TermsAndConditions: checkbox required;
+  }
+
+  validate {
+    if NumberOfTravelers < 1 {
+      error "Number of travelers must be at least 1.";
+    }
+  }
+}

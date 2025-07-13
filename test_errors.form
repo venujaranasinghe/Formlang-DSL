@@ -1,0 +1,33 @@
+// Test file for FormLang++ error handling
+
+form ErrorTest {
+  // Test 1: Missing semicolon (syntax error)
+  meta author = "Test Team"
+  
+  // Test 2: Valid statement (should be parsed correctly)
+  meta description = "This is a test form";
+  
+  section Syntax {
+    // Test 3: Invalid field type (semantic error)
+    field test1: invalid_type required;
+    
+    // Test 4: Valid field (should be parsed correctly)
+    field test2: text required;
+    
+    // Test 5: Missing semicolon (syntax error)
+    field test3: number min=18 max=99
+    
+    // Test 6: Valid field (should be parsed correctly)
+    field test4: email required;
+  }
+  
+  // Test 7: Duplicate section name (semantic error)
+  section Syntax {
+    field test5: text;
+  }
+  
+  section Recovery {
+    // Test 8: Valid field after previous errors
+    field test6: checkbox default=true;
+  }
+}

@@ -1,0 +1,32 @@
+form JobApplication {
+  meta author = "HR Department";
+
+  section PersonalDetails {
+    field FullName: text required;
+    field Email: email required;
+    field Phone: text pattern="^[0-9]{10}$";
+    field Password: password required;
+    field PreferredContactMethod: radio ["Email", "Phone", "None"] required;
+    field Resume: file accept=".pdf,.doc,.docx" required;
+  }
+
+  section JobDetails {
+    field Position: dropdown ["Software Engineer", "Product Manager", "UX Designer", "Data Analyst", "Marketing Specialist"] required;
+    field Experience: number min=0 max=50 required;
+    field StartDate: date required;
+    field SalaryExpectation: number min=30000 max=200000;
+    field Relocate: checkbox default=false;
+  }
+
+  section AdditionalInfo {
+    field CoverLetter: textarea rows=5 required;
+    field Referral: dropdown ["Job Board", "Company Website", "Employee Referral", "LinkedIn", "Other"];
+    field AgreeToTerms: checkbox required;
+  }
+
+  validate {
+    if experience < 2 {
+      error "This position requires at least 2 years of experience.";
+    }
+  }
+}
